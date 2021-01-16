@@ -56,11 +56,13 @@ class LoginWindow(Screen):
         self.password.text = ""
 
 
+#class AddWatcherWindow(Screen):
+
+
 class HabitWindow(Screen):
     n = ObjectProperty(None)
     created = ObjectProperty(None)
     email = ObjectProperty(None)
-    current = ""
 
     def logOut(self):
         sm.current = "login"
@@ -76,7 +78,6 @@ class HabitWindow(Screen):
 
 
 class WatchlistWindow(Screen):
-    current = ""
 
     def logOut(self):
         sm.current = "login"
