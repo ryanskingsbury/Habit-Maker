@@ -224,3 +224,42 @@
             on_release:
                 app.root.current = "habit"
                 root.manager.transition.direction = "right"
+
+<WatchlistWindow>:
+    canvas.before:
+        Color:
+            rgba: (0.157, 0.157, 0.157, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        Button:
+            pos_hint:{"x":0.9, "y": 0.9}
+            size_hint:0.1,0.1
+            text: "Log Out"
+            background_normal: ''
+            background_color: (0.235,0.510,0.784,1)
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "down"
+
+        Button:
+            pos_hint:{"x":0.5, "y": 0.9}
+            size_hint:0.1,0.1
+            text: "Watchlist"
+            background_normal: ''
+            background_color: (0.235,0.510,0.784,1)
+            on_release:
+                app.root.current = "watchlist"
+                root.manager.transition.direction = "right"
+
+        Button:
+            pos_hint:{"x":0.2, "y": 0.9}
+            size_hint:0.1,0.1
+            text: "Habit"
+            background_normal: ''
+            background_color: (0.235,0.510,0.784,1)
+            on_release:
+                app.root.current = "habit"
+                root.manager.transition.direction = "right"
