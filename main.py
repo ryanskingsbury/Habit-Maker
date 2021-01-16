@@ -81,6 +81,9 @@ class WatchlistWindow(Screen):
     def logOut(self):
         sm.current = "login"
 
+    def habitBtn(self):
+        sm.current = "habit"
+
 
 class WindowManager(ScreenManager):
     pass
