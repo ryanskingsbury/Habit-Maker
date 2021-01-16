@@ -353,9 +353,10 @@
                 root.manager.transition.direction = "left"
 
 <AddWatcherWindow>:
-    canvas.before:
-        Color:
-            rgba: (0.157, 0.157, 0.157, 1)
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    RelativeLayout:
+        canvas.before:
+            Color:
+                rgba: (0.157, 0.157, 0.157, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
