@@ -19,7 +19,7 @@ class CreateAccountWindow(Screen):
 
                 self.reset()
 
-                sm.current = "login"
+                sm.current = "addwatcher"
             else:
                 invalidForm()
         else:
@@ -56,25 +56,22 @@ class LoginWindow(Screen):
         self.password.text = ""
 
 
-#class AddWatcherWindow(Screen):
+class AddWatcherWindow(Screen):
+
+    def submitBtn(self):
+        sm.current = "login"
 
 
 class HabitWindow(Screen):
-    n = ObjectProperty(None)
-    created = ObjectProperty(None)
-    email = ObjectProperty(None)
 
     def logOut(self):
         sm.current = "login"
 
-    def on_enter(self, *args):
-        password, name, created = db.get_user(self.current)
-        self.n.text = "Account Name: " + name
-        self.email.text = "Email: " + self.current
-        self.created.text = "Created On: " + created
-
     def watchlistBtn(self):
         sm.current = "watchlist"
+
+    def profileBtn(self):
+        sm.current = "profile"
 
 
 class WatchlistWindow(Screen):
@@ -84,6 +81,30 @@ class WatchlistWindow(Screen):
 
     def habitBtn(self):
         sm.current = "habit"
+
+    def profileBtn(self):
+        sm.current = "profile"
+
+
+class ProfileWindow(Screen):
+    n = ObjectProperty(None)
+    created = ObjectProperty(None)
+    email = ObjectProperty(None)
+    
+    def on_enter(self, *args):
+        password, name, created = db.get_user(self.current)
+        self.n.text = "Account Name: " + name
+        self.email.text = "Email: " + self.current
+        self.created.text = "Created On: " + created
+    
+    def logOut(self):
+        sm.current = "login"
+
+    def habitBtn(self):
+        sm.current = "habit"
+
+    def watchlistBtn(self):
+        sm.current = "watchlist"
 
 
 class WindowManager(ScreenManager):
@@ -110,7 +131,7 @@ kv = Builder.load_file("my.kv")
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"),CreateAccountWindow(name="create"),HabitWindow(name="habit"),WatchlistWindow(name="watchlist")]
+screens = [LoginWindow(name="login"),CreateAccountWindow(name="create"),HabitWindow(name="habit"),WatchlistWindow(name="watchlist"),AddWatcherWindow(name="addwatcher"),ProfileWindow(name="profile")]
 for screen in screens:
     sm.add_widget(screen)
 
