@@ -41,7 +41,7 @@ class LoginWindow(Screen):
 
     def loginBtn(self):
         if db.validate(self.email.text, self.password.text):
-            MainWindow.current = self.email.text
+            HabitWindow.current = self.email.text
             self.reset()
             sm.current = "main"
         else:
@@ -56,7 +56,7 @@ class LoginWindow(Screen):
         self.password.text = ""
 
 
-class MainWindow(Screen):
+class HabitWindow(Screen):
     n = ObjectProperty(None)
     created = ObjectProperty(None)
     email = ObjectProperty(None)
@@ -96,7 +96,7 @@ kv = Builder.load_file("my.kv")
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),MainWindow(name="main")]
+screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),HabitWindow(name="main")]
 for screen in screens:
     sm.add_widget(screen)
 
