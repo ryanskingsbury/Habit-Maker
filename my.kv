@@ -40,6 +40,7 @@
                 size_hint: 0.4, 0.12
                 id: namee
                 multiline: False
+                write_tab: False
                 font_size: (root.width**2 + root.height**2) / 14**4
 
             Label:
@@ -53,6 +54,7 @@
                 size_hint: 0.4, 0.12
                 id: email
                 multiline: False
+                write_tab: False
                 font_size: (root.width**2 + root.height**2) / 14**4
 
             Label:
@@ -66,6 +68,8 @@
                 size_hint: 0.4, 0.12
                 id: passw
                 multiline: False
+                write_tab: False
+                on_text_validate: root.submit()
                 password: True
                 font_size: (root.width**2 + root.height**2) / 14**4
 
@@ -117,6 +121,7 @@
             id: email
             font_size: (root.width**2 + root.height**2) / 13**4
             multiline: False
+            write_tab: False
             pos_hint: {"x": 0.45 , "top":0.9}
             size_hint: 0.4, 0.15
 
@@ -130,7 +135,9 @@
             id: password
             font_size: (root.width**2 + root.height**2) / 13**4
             multiline: False
+            write_tab: False
             password: True
+            on_text_validate: root.loginBtn()
             pos_hint: {"x": 0.45, "top":0.7}
             size_hint: 0.4, 0.15
 
