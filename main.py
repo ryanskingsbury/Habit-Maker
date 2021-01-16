@@ -43,7 +43,7 @@ class LoginWindow(Screen):
         if db.validate(self.email.text, self.password.text):
             HabitWindow.current = self.email.text
             self.reset()
-            sm.current = "main"
+            sm.current = "habit"
         else:
             invalidLogin()
 
@@ -71,6 +71,16 @@ class HabitWindow(Screen):
         self.email.text = "Email: " + self.current
         self.created.text = "Created On: " + created
 
+    def watchlistBtn(self):
+        sm.current = "watchlist"
+
+
+class WatchlistWindow(Screen):
+    current = ""
+
+    def logOut(self):
+        sm.current = "login"
+
 
 class WindowManager(ScreenManager):
     pass
@@ -96,7 +106,7 @@ kv = Builder.load_file("my.kv")
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"), CreateAccountWindow(name="create"),HabitWindow(name="main")]
+screens = [LoginWindow(name="login"),CreateAccountWindow(name="create"),HabitWindow(name="habit"),WatchlistWindow(name="watchlist")]
 for screen in screens:
     sm.add_widget(screen)
 

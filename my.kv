@@ -205,4 +205,12 @@
                 app.root.current = "login"
                 root.manager.transition.direction = "down"
 
-        
+        Button:
+            pos_hint:{"x":0.5, "y": 0.9}
+            size_hint:0.1,0.1
+            text: "Watchlist"
+            background_normal: ''
+            background_color: (0.235,0.510,0.784,1)
+            on_release:
+                app.root.current = "watchlist"
+                root.manager.transition.direction = "right"
