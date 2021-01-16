@@ -41,7 +41,7 @@ class LoginWindow(Screen):
 
     def loginBtn(self):
         if db.validate(self.email.text, self.password.text):
-            HabitWindow.current = self.email.text
+            ProfileWindow.current = self.email.text
             self.reset()
             sm.current = "habit"
         else:
@@ -71,6 +71,7 @@ class HabitWindow(Screen):
         sm.current = "watchlist"
 
     def profileBtn(self):
+        ProfileWindow.current = self.email.text
         sm.current = "profile"
 
 
