@@ -245,7 +245,6 @@
 
 <WatchlistWindow>:
 
-
     canvas.before:
         Color:
             rgba: (0.157, 0.157, 0.157, 1)
@@ -273,7 +272,6 @@
             on_release:
                 app.root.current = "profile"
                 root.manager.transition.direction = "up"
-
 
         Button:
             pos_hint:{"x":0.3, "y": 0.9}
@@ -298,7 +296,6 @@
 
 <ProfileWindow>:
 
-
     canvas.before:
         Color:
             rgba: (0.157, 0.157, 0.157, 1)
@@ -307,15 +304,38 @@
             size: self.size
 
     FloatLayout:
-        Button:
-            pos_hint:{"x":0.9, "y": 0.9}
-            size_hint:0.1,0.1
-            text: "Log Out"
-            background_normal: ''
-            background_color: (0.235,0.510,0.784,1)
-            on_release:
-                app.root.current = "login"
-                root.manager.transition.direction = "down"
+        
+        Label:
+            id: n
+            pos_hint:{"x": 0.1, "top":0.9}
+            size_hint:0.8, 0.2
+            text: "Account Name: "
+
+        Label:
+            id: email
+            pos_hint:{"x": 0.1, "top":0.7}
+            size_hint:0.8, 0.2
+            text: "Email: "
+            background_color: (1,0.510,0.353,1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+        Label:
+            id: created
+            pos_hint:{"x": 0.1, "top":0.5}
+            size_hint:0.8, 0.2
+            text: "Created: "
+            background_color: (1,0.510,0.353,1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
         Button:
             pos_hint:{"x":0, "y": 0.9}
@@ -327,9 +347,18 @@
                 app.root.current = "profile"
                 root.manager.transition.direction = "up"
 
+        Button:
+            pos_hint:{"x":0.9, "y": 0.9}
+            size_hint:0.1,0.1
+            text: "Log Out"
+            background_normal: ''
+            background_color: (0.235,0.510,0.784,1)
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "down"
 
         Button:
-            pos_hint:{"x":0.3, "y": 0.9}
+            pos_hint:{"x":0.2, "y": 0.9}
             size_hint:0.1,0.1
             text: "Watchlist"
             background_normal: ''
@@ -339,7 +368,7 @@
                 root.manager.transition.direction = "left"
 
         Button:
-            pos_hint:{"x":0.2, "y": 0.9}
+            pos_hint:{"x":0.1, "y": 0.9}
             size_hint:0.1,0.1
             text: "Habit"
             background_normal: ''
