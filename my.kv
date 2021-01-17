@@ -180,6 +180,8 @@
 
 <HabitWindow>:
     morning_habit_1: morning_habit_1
+    morning_habit_2: morning_habit_2
+    morning_habit_3: morning_habit_3
     
     RelativeLayout:
         canvas.before:
@@ -231,7 +233,7 @@
                     root.manager.transition.direction = "right"
 
         GridLayout:
-            rows: 5
+            rows: 3
             cols: 1
             row_force_default: True
             row_default_height: '32dp'
@@ -240,23 +242,9 @@
             Label:
                 id: morning_habit_1
             Label:
-                text: 'Habit 2'
+                id: morning_habit_2
             Label:
-                text: 'Habit 3'
-            Label:
-                text: 'Habit 4'
-            Label:
-                text: 'Habit 5'
-            Widget:
-                canvas:
-                    Rectangle:
-                        pos: (30,40)
-                        size: (50,50)
-            Widget:
-                canvas:
-                    Rectangle:
-                        pos: (20,20)
-                        size: (50,50)
+                id: morning_habit_3
 
         Button:
             pos_hint:{"x":0.2, "y": 0.05}

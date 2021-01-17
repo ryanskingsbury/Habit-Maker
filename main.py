@@ -56,6 +56,7 @@ class LoginWindow(Screen):
     def loginBtn(self):
         if db.validate(self.email.text, self.password.text):
             ProfileWindow.current = self.email.text
+            HabitWindow.current = self.email.text
             self.reset()
             sm.current = "habit"
         else:
@@ -72,19 +73,46 @@ class LoginWindow(Screen):
 class HabitWindow(Screen):
     user_habits = []
     morning_habit_1 = ObjectProperty(None)
+    morning_habit_2 = ObjectProperty(None)
+    morning_habit_3 = ObjectProperty(None)
+    day_habit_1 = ObjectProperty(None)
+    day_habit_2 = ObjectProperty(None)
+    day_habit_3 = ObjectProperty(None)
+    night_habit_1 = ObjectProperty(None)
+    night_habit_2 = ObjectProperty(None)
+    night_habit_3 = ObjectProperty(None)
     
     def habitGenBtn(self):
         file = open('habits.txt')
         all_habits = file.readlines()
         habit_index = random.randint(0, len(all_habits)-1)
-        self.user_habits.append(all_habits[habit_index])
+        rand_habit = all_habits[habit_index]
+        if len(self.user_habits ) < 3 and "none" in db.get_habits(self.current):
+            while rand_habit in self.user_habits:
+                habit_index = random.randint(0, len(all_habits)-1)
+                rand_habit = all_habits[habit_index]
+            self.user_habits.append(rand_habit)
         print(self.user_habits)
         if len(self.user_habits) > 0:
-            self.morning_habit_1.text = "Habit #1: " + self.user_habits[0]
+            if len(self.user_habits) >= 1:
+                self.morning_habit_1.text = "Habit #1: " + self.user_habits[0]
+                db.update_habit(self.current, 0, self.user_habits[0], "false")
+                if len(self.user_habits) >= 2:
+                    self.morning_habit_2.text = "Habit #2: " + self.user_habits[1]
+                    db.update_habit(self.current, 2, self.user_habits[1], "false")
+                    if len(self.user_habits) >= 3:
+                        self.morning_habit_3.text = "Habit #3: " + self.user_habits[2]
+                        db.update_habit(self.current, 4, self.user_habits[2], "false")
         
     def on_enter(self, *args):
-        if len(self.user_habits) > 0:
-            self.morning_habit_1.text = "Habit #1: " + self.user_habits[0]
+        habit1, val1, habit2, val2, habit3, val3 = db.get_habits(self.current)
+        if habit1 is not "none":
+            self.morning_habit_1.text = "Habit #1: " + habit1 + ";" + val1
+        if habit2 is not "none":
+            self.morning_habit_2.text = "Habit #2: " + habit2 + ";" + val2
+        if habit3 is not "none":
+            self.morning_habit_3.text = "Habit #3: " + habit3 + ";" + val3
+                        
 
 
 class WatchlistWindow(Screen):
@@ -122,7 +150,7 @@ def invalidForm(error):
 kv = Builder.load_file("my.kv")
 
 sm = WindowManager()
-db = DataBase("users.txt")
+db = DataBase("users.txt", "users_habits.txt")
 
 screens = [LoginWindow(name="login"),CreateAccountWindow(name="create"),HabitWindow(name="habit"),WatchlistWindow(name="watchlist"),ProfileWindow(name="profile")]
 for screen in screens:

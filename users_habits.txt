@@ -1,0 +1,1 @@
+a@a.com;Get at least 60 minutes of excersise;false;Drink 8 glasses of water;false;For every 60 minutes of sitting, spend 5 minutes standing;false
