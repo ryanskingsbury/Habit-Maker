@@ -9,6 +9,7 @@ from kivy.uix.gridlayout import GridLayout
 from database import DataBase
 import random
 import fileinput
+import webbrowser
 
 
 class CreateAccountWindow(Screen):
@@ -116,7 +117,9 @@ class HabitWindow(Screen):
             self.habit_2.text = "Habit #2: " + habit2 + ":" + val2
         if habit3 != "none":
             self.habit_3.text = "Habit #3: " + habit3 + ":" + val3
-                        
+
+    def donateBtn(self):
+        webbrowser.open("https://www.paypal.com/fundraiser/hub")
 
 
 class WatchlistWindow(Screen):

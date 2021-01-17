@@ -266,6 +266,16 @@
                 root.habitGenBtn()
                 app.root.current = 'habit'
 
+        Button:
+            pos_hint:{"x":0.3, "y": 0.05}
+            size_hint:0.1,0.1
+            text: "Donate"
+            background_normal: ''
+            background_color: (0.235,0.510,0.784,1)
+            on_release:
+                root.donateBtn()
+                app.root.current = 'habit'
+
 
 <WatchlistWindow>:
     habit_1: habit_1
