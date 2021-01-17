@@ -105,7 +105,7 @@ class ProfileWindow(Screen):
         self.email.text = "Email: " + self.current
         self.created.text = "Created On: " + created
         self.watcher.text = "Watcher: " + watcher
-        self.donated.text = "Donated: " + donated
+        self.donated.text = "Donated: $" + donated
 
     
     def logOut(self):
