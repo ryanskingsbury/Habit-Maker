@@ -179,9 +179,9 @@
 
 
 <HabitWindow>:
-    morning_habit_1: morning_habit_1
-    morning_habit_2: morning_habit_2
-    morning_habit_3: morning_habit_3
+    habit_1: habit_1
+    habit_2: habit_2
+    habit_3: habit_3
     
     RelativeLayout:
         canvas.before:
@@ -240,11 +240,21 @@
             size_hint_y: None
             pos_hint:{"x":0, "y": 0.5}
             Label:
-                id: morning_habit_1
+                id: habit_1
             Label:
-                id: morning_habit_2
+                id: habit_2
             Label:
-                id: morning_habit_3
+                id: habit_3
+       
+        Button:
+            pos_hint:{"x":0, "y": 0.05}
+            size_hint:0.1,0.1
+            text: "Reset Habits"
+            background_normal: ''
+            background_color: (0.235,0.510,0.784,1)
+            on_release:
+                root.reset_button()
+                app.root.current = 'habit'
 
         Button:
             pos_hint:{"x":0.2, "y": 0.05}
@@ -258,6 +268,10 @@
 
 
 <WatchlistWindow>:
+    habit_1: habit_1
+    habit_2: habit_2
+    habit_3: habit_3
+
     RelativeLayout:
         canvas.before:
             Color:
@@ -306,6 +320,20 @@
                 on_release:
                     app.root.current = "habit"
                     root.manager.transition.direction = "right"
+
+        GridLayout:
+            rows: 3
+            cols: 1
+            row_force_default: True
+            row_default_height: '32dp'
+            size_hint_y: None
+            pos_hint:{"x":0, "y": 0.5}
+            Label:
+                id: habit_1
+            Label:
+                id: habit_2
+            Label:
+                id: habit_3
 
 
 <ProfileWindow>:

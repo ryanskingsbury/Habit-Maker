@@ -27,6 +27,7 @@ class CreateAccountWindow(Screen):
                         sm.current = "login"
                     elif self.watcher.text != "" and self.watcher.text.count("@") == 1 and self.watcher.text.count(".") > 0:
                         db.add_user(self.email.text, self.password.text, self.namee.text, self.watcher.text, str(0))
+                        db.add_watcher(self.email.text, self.watcher.text)
                         self.reset()
                         sm.current = "login"
                     else:
@@ -57,6 +58,7 @@ class LoginWindow(Screen):
         if db.validate(self.email.text, self.password.text):
             ProfileWindow.current = self.email.text
             HabitWindow.current = self.email.text
+            WatchlistWindow.current = self.email.text
             self.reset()
             sm.current = "habit"
         else:
@@ -70,53 +72,68 @@ class LoginWindow(Screen):
         self.email.text = ""
         self.password.text = ""
 
-class HabitWindow(Screen):
+
+class HabitWindow(Screen): 
     user_habits = []
-    morning_habit_1 = ObjectProperty(None)
-    morning_habit_2 = ObjectProperty(None)
-    morning_habit_3 = ObjectProperty(None)
-    day_habit_1 = ObjectProperty(None)
-    day_habit_2 = ObjectProperty(None)
-    day_habit_3 = ObjectProperty(None)
-    night_habit_1 = ObjectProperty(None)
-    night_habit_2 = ObjectProperty(None)
-    night_habit_3 = ObjectProperty(None)
+    habit_1 = ObjectProperty(None)
+    habit_2 = ObjectProperty(None)
+    habit_3 = ObjectProperty(None)
     
     def habitGenBtn(self):
         file = open('habits.txt')
         all_habits = file.readlines()
         habit_index = random.randint(0, len(all_habits)-1)
         rand_habit = all_habits[habit_index]
-        if len(self.user_habits ) < 3 and "none" in db.get_habits(self.current):
-            while rand_habit in self.user_habits:
-                habit_index = random.randint(0, len(all_habits)-1)
-                rand_habit = all_habits[habit_index]
-            self.user_habits.append(rand_habit)
-        print(self.user_habits)
-        if len(self.user_habits) > 0:
-            if len(self.user_habits) >= 1:
-                self.morning_habit_1.text = "Habit #1: " + self.user_habits[0]
-                db.update_habit(self.current, 0, self.user_habits[0], "false")
-                if len(self.user_habits) >= 2:
-                    self.morning_habit_2.text = "Habit #2: " + self.user_habits[1]
-                    db.update_habit(self.current, 2, self.user_habits[1], "false")
-                    if len(self.user_habits) >= 3:
-                        self.morning_habit_3.text = "Habit #3: " + self.user_habits[2]
-                        db.update_habit(self.current, 4, self.user_habits[2], "false")
+
+        user_habits = db.get_habits(self.current)
+        while rand_habit in user_habits:
+            habit_index = random.randint(0, len(all_habits)-1)
+            rand_habit = all_habits[habit_index]
+        for idx,element in enumerate(user_habits):
+            if element == 'none':
+                db.update_habit(self.current, idx, rand_habit)
+                break
+                
+        print (user_habits)
+        self.on_enter()
+
+    def reset_button(self):
+        db.reset_habits(self.current)
+        self.on_enter()
         
     def on_enter(self, *args):
+        self.habit_1.text = ""
+        self.habit_2.text = ""
+        self.habit_3.text = ""
         habit1, val1, habit2, val2, habit3, val3 = db.get_habits(self.current)
-        if habit1 is not "none":
-            self.morning_habit_1.text = "Habit #1: " + habit1 + ";" + val1
-        if habit2 is not "none":
-            self.morning_habit_2.text = "Habit #2: " + habit2 + ";" + val2
-        if habit3 is not "none":
-            self.morning_habit_3.text = "Habit #3: " + habit3 + ";" + val3
+        if habit1 != "none":
+            self.habit_1.text = "Habit #1: " + habit1 + ":" + val1
+        if habit2 != "none":
+            self.habit_2.text = "Habit #2: " + habit2 + ":" + val2
+        if habit3 != "none":
+            self.habit_3.text = "Habit #3: " + habit3 + ":" + val3
                         
 
 
 class WatchlistWindow(Screen):
-    pass
+    habit_1 = ObjectProperty(None)
+    habit_2 = ObjectProperty(None)
+    habit_3 = ObjectProperty(None)
+    
+    def on_enter(self, *args):
+        self.habit_1.text = ""
+        self.habit_2.text = ""
+        self.habit_3.text = ""
+        watching = db.get_watching(self.current)
+        print(watching)
+        if watching != "none":
+            habit1, val1, habit2, val2, habit3, val3 = db.get_habits(watching)
+            if habit1 != "none":
+                self.habit_1.text = "Habit #1: " + habit1 + ":" + val1
+            if habit2 != "none":
+                self.habit_2.text = "Habit #2: " + habit2 + ":" + val2
+            if habit3 != "none":
+                self.habit_3.text = "Habit #3: " + habit3 + ":" + val3
 
 
 class ProfileWindow(Screen):
@@ -127,7 +144,7 @@ class ProfileWindow(Screen):
     donated = ObjectProperty(None)
     
     def on_enter(self, *args):
-        password, name, created, watcher, donated = db.get_user(self.current)
+        password, name, created, watcher, watching, donated = db.get_user(self.current)
         self.n.text = "Account Name: " + name
         self.email.text = "Email: " + self.current
         self.created.text = "Created On: " + created
@@ -137,6 +154,9 @@ class ProfileWindow(Screen):
 
 class WindowManager(ScreenManager):
     pass
+
+def clearMem(self):
+    user_habits = []
 
 
 def invalidForm(error):
