@@ -233,6 +233,29 @@
                     app.root.current = "habit"
                     root.manager.transition.direction = "right"
 
+        GridLayout:
+            rows: 6
+            cols: 1
+            row_force_default: True
+            row_default_height: '32dp'
+            size_hint_y: None
+            pos_hint:{"x":0, "y": 0.5}
+            Label:
+                text: 'Habit 1'
+            Label:
+                text: 'Habit 2'
+            Label:
+                text: 'Habit 3'
+            Label:
+                text: 'Habit 4'
+            Label:
+                text: 'Habit 5'
+            Label:
+                text: 'Habit 6'
+
+
+
+
 <WatchlistWindow>:
     RelativeLayout:
         canvas.before:

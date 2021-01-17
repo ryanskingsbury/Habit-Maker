@@ -4,7 +4,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
+from kivy.uix.gridlayout import GridLayout
+#from kivy.uix.textinput import TextInput
 from database import DataBase
 
 
