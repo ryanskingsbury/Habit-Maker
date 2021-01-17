@@ -16,17 +16,25 @@ class CreateAccountWindow(Screen):
     watcher = ObjectProperty(None)
 
     def submit(self):
-        if self.namee.text != "" and self.email.text != ""  and self.watcher.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
-            if self.password != "":
-                db.add_user(self.email.text, self.password.text, self.namee.text, self.watcher.text, str(0))
-
-                self.reset()
-
-                sm.current = "login"
+        if db.get_user(self.email.text) == -1:
+            if self.password.text != "":
+                if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
+                    if self.watcher.text == "":
+                        db.add_user(self.email.text, self.password.text, self.namee.text, 'none', str(0))
+                        self.reset()
+                        sm.current = "login"
+                    elif self.watcher.text != "" and self.watcher.text.count("@") == 1 and self.watcher.text.count(".") > 0:
+                        db.add_user(self.email.text, self.password.text, self.namee.text, self.watcher.text, str(0))
+                        self.reset()
+                        sm.current = "login"
+                    else:
+                        invalidForm('Watcher email invalid')
+                else:
+                    invalidForm('User email invalid')
             else:
-                invalidForm()
+                invalidForm('Password cannot be empty')
         else:
-            invalidForm()
+            invalidForm('User email exists')
 
     def login(self):
         self.reset()
@@ -114,16 +122,9 @@ class WindowManager(ScreenManager):
     pass
 
 
-def invalidLogin():
-    pop = Popup(title='Invalid Login',
-                  content=Label(text='Invalid username or password.'),
-                  size_hint=(None, None), size=(400, 400))
-    pop.open()
-
-
-def invalidForm():
+def invalidForm(error):
     pop = Popup(title='Invalid Form',
-                  content=Label(text='Please fill in all inputs with valid information.'),
+                  content=Label(text=error),
                   size_hint=(None, None), size=(400, 400))
 
     pop.open()

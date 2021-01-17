@@ -14,7 +14,7 @@ class DataBase:
 
         for line in self.file:
             email, password, name, created, watcher, donated = line.strip().split(";")
-            self.users[email] = (password, name, created, watcher, donated)
+            self.users[email] = [password, name, created, watcher, donated]
 
         self.file.close()
 
@@ -26,12 +26,18 @@ class DataBase:
 
     def add_user(self, email, password, name, watcher, donated):
         if email.strip() not in self.users:
-            self.users[email.strip()] = (password.strip(), name.strip(), DataBase.get_date(), watcher.strip(), donated.strip())
+            self.users[email.strip()] = [password.strip(), name.strip(), DataBase.get_date(), watcher.strip(), donated.strip()]
             self.save()
             return 1
         else:
-            print("Email exists already")
             return -1
+
+    def add_donated(self, email, donation):
+        donated = donation + int(self.users[email][4])
+        self.users[email][4] = str(donated)
+
+    def add_watcher(self, email, watcher):
+        self.users[email][3] = watcher.strip()
 
     def validate(self, email, password):
         if self.get_user(email) != -1:
