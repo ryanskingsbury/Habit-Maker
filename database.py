@@ -13,8 +13,8 @@ class DataBase:
         self.users = {}
 
         for line in self.file:
-            email, password, name, created = line.strip().split(";")
-            self.users[email] = (password, name, created)
+            email, password, name, created, watcher, donated = line.strip().split(";")
+            self.users[email] = (password, name, created, watcher, donated)
 
         self.file.close()
 
@@ -24,9 +24,9 @@ class DataBase:
         else:
             return -1
 
-    def add_user(self, email, password, name):
+    def add_user(self, email, password, name, watcher, donated):
         if email.strip() not in self.users:
-            self.users[email.strip()] = (password.strip(), name.strip(), DataBase.get_date())
+            self.users[email.strip()] = (password.strip(), name.strip(), DataBase.get_date(), watcher.strip(), donated.strip())
             self.save()
             return 1
         else:
@@ -42,7 +42,7 @@ class DataBase:
     def save(self):
         with open(self.filename, "w") as f:
             for user in self.users:
-                f.write(user + ";" + self.users[user][0] + ";" + self.users[user][1] + ";" + self.users[user][2] + "\n")
+                f.write(user + ";" + self.users[user][0] + ";" + self.users[user][1] + ";" + self.users[user][2] + ";" + self.users[user][3] + ";" + self.users[user][4] + "\n")
 
     @staticmethod
     def get_date():

@@ -12,15 +12,16 @@ class CreateAccountWindow(Screen):
     namee = ObjectProperty(None)
     email = ObjectProperty(None)
     password = ObjectProperty(None)
+    watcher = ObjectProperty(None)
 
     def submit(self):
-        if self.namee.text != "" and self.email.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
+        if self.namee.text != "" and self.email.text != ""  and self.watcher.text != "" and self.email.text.count("@") == 1 and self.email.text.count(".") > 0:
             if self.password != "":
-                db.add_user(self.email.text, self.password.text, self.namee.text)
+                db.add_user(self.email.text, self.password.text, self.namee.text, self.watcher.text, str(0))
 
                 self.reset()
 
-                sm.current = "addwatcher"
+                sm.current = "login"
             else:
                 invalidForm()
         else:
@@ -34,6 +35,7 @@ class CreateAccountWindow(Screen):
         self.email.text = ""
         self.password.text = ""
         self.namee.text = ""
+        self.watcher.text = ""
 
 
 class LoginWindow(Screen):
@@ -55,13 +57,6 @@ class LoginWindow(Screen):
     def reset(self):
         self.email.text = ""
         self.password.text = ""
-
-
-class AddWatcherWindow(Screen):
-
-    def submitBtn(self):
-        sm.current = "login"
-
 
 class HabitWindow(Screen):
 
@@ -92,12 +87,17 @@ class ProfileWindow(Screen):
     n = ObjectProperty(None)
     created = ObjectProperty(None)
     email = ObjectProperty(None)
+    watcher = ObjectProperty(None)
+    donated = ObjectProperty(None)
     
     def on_enter(self, *args):
-        password, name, created = db.get_user(self.current)
+        password, name, created, watcher, donated = db.get_user(self.current)
         self.n.text = "Account Name: " + name
         self.email.text = "Email: " + self.current
         self.created.text = "Created On: " + created
+        self.watcher.text = "Watcher: " + watcher
+        self.donated.text = "Donated: " + donated
+
     
     def logOut(self):
         sm.current = "login"
@@ -133,7 +133,7 @@ kv = Builder.load_file("my.kv")
 sm = WindowManager()
 db = DataBase("users.txt")
 
-screens = [LoginWindow(name="login"),CreateAccountWindow(name="create"),HabitWindow(name="habit"),WatchlistWindow(name="watchlist"),AddWatcherWindow(name="addwatcher"),ProfileWindow(name="profile")]
+screens = [LoginWindow(name="login"),CreateAccountWindow(name="create"),HabitWindow(name="habit"),WatchlistWindow(name="watchlist"),ProfileWindow(name="profile")]
 for screen in screens:
     sm.add_widget(screen)
 

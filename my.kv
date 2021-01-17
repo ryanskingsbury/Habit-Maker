@@ -8,6 +8,7 @@
     namee: namee
     email: email
     password: passw
+    watcher: watcher
     
     RelativeLayout:
         canvas.before:
@@ -26,17 +27,17 @@
                 Label:
                     text: "Create an Account"
                     size_hint: 0.8, 0.2
-                    pos_hint: {"x":0.1, "top":1}
+                    pos_hint: {"x":0.1, "top":1.05}
                     font_size: (root.width**2 + root.height**2) / 14**4
 
                 Label:
                     size_hint: 0.5,0.12
-                    pos_hint: {"x":0, "top":0.8}
+                    pos_hint: {"x":0, "top":0.9}
                     text: "Name: "
                     font_size: (root.width**2 + root.height**2) / 14**4
 
                 TextInput:
-                    pos_hint: {"x":0.5, "top":0.8}
+                    pos_hint: {"x":0.5, "top":0.9}
                     size_hint: 0.4, 0.12
                     id: namee
                     multiline: False
@@ -45,12 +46,12 @@
 
                 Label:
                     size_hint: 0.5,0.12
-                    pos_hint: {"x":0, "top":0.8-0.13}
+                    pos_hint: {"x":0, "top":0.9-0.13}
                     text: "Email: "
                     font_size: (root.width**2 + root.height**2) / 14**4
 
                 TextInput:
-                    pos_hint: {"x":0.5, "top":0.8-0.13}
+                    pos_hint: {"x":0.5, "top":0.9-0.13}
                     size_hint: 0.4, 0.12
                     id: email
                     multiline: False
@@ -59,18 +60,35 @@
 
                 Label:
                     size_hint: 0.5,0.12
-                    pos_hint: {"x":0, "top":0.8-0.13*2}
+                    pos_hint: {"x":0, "top":0.9-0.13*2}
                     text: "Password: "
                     font_size: (root.width**2 + root.height**2) / 14**4
 
                 TextInput:
-                    pos_hint: {"x":0.5, "top":0.8-0.13*2}
+                    pos_hint: {"x":0.5, "top":0.9-0.13*2}
                     size_hint: 0.4, 0.12
                     id: passw
                     multiline: False
                     write_tab: False
-                    on_text_validate: root.submit()
+                    #on_text_validate: root.submit()
                     password: True
+                    font_size: (root.width**2 + root.height**2) / 14**4
+
+
+                Label:
+                    size_hint: 0.5,0.12
+                    pos_hint: {"x":0, "top":0.9-0.13*3}
+                    text: "Watcher: "
+                    font_size: (root.width**2 + root.height**2) / 14**4
+
+                TextInput:
+                    pos_hint: {"x":0.5, "top":0.9-0.13*3}
+                    size_hint: 0.4, 0.12
+                    id: watcher
+                    multiline: False
+                    write_tab: False
+                    on_text_validate: root.submit()
+                    #password: True
                     font_size: (root.width**2 + root.height**2) / 14**4
 
             Button:
@@ -271,6 +289,8 @@
     n: n
     created: created
     email: email
+    watcher: watcher
+    donated: donated
 
     RelativeLayout:
         canvas.before:
@@ -285,9 +305,9 @@
             Label:
                 id: n
                 pos_hint:{"x": 0.1, "top":0.9}
-                size_hint:0.8, 0.2
+                size_hint:0.8, 0.1
                 text: "Account Name: "
-                font_size: 30
+                font_size: (root.width**2 + root.height**2) / 14**4
                 background_color: (60/255,179/255,0/255,1)
                 canvas.before:
                     Color:
@@ -298,10 +318,38 @@
 
             Label:
                 id: email
-                pos_hint:{"x": 0.1, "top":0.7}
-                size_hint:0.8, 0.2
+                pos_hint:{"x": 0.1, "top":0.8}
+                size_hint:0.8, 0.1
                 text: "Email: "
-                font_size: 30
+                font_size: (root.width**2 + root.height**2) / 14**4
+                background_color: (60/255,179/255,0/255,1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+            Label:
+                id: watcher
+                pos_hint:{"x": 0.1, "top":0.7}
+                size_hint:0.8, 0.1
+                text: "Watcher: "
+                font_size: (root.width**2 + root.height**2) / 14**4
+                background_color: (60/255,179/255,0/255,1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+            Label:
+                id: donated
+                pos_hint:{"x": 0.1, "top":0.6}
+                size_hint:0.8, 0.1
+                text: "Donated "
+                font_size: (root.width**2 + root.height**2) / 14**4
                 background_color: (60/255,179/255,0/255,1)
                 canvas.before:
                     Color:
@@ -313,9 +361,9 @@
             Label:
                 id: created
                 pos_hint:{"x": 0.1, "top":0.5}
-                size_hint:0.8, 0.2
+                size_hint:0.8, 0.1
                 text: "Created: "
-                font_size: 30
+                font_size: (root.width**2 + root.height**2) / 14**4
                 background_color: (60/255,179/255,0/255,1)
                 canvas.before:
                     Color:
@@ -363,12 +411,3 @@
                 on_release:
                     app.root.current = "habit"
                     root.manager.transition.direction = "left"
-
-<AddWatcherWindow>:
-    RelativeLayout:
-        canvas.before:
-            Color:
-                rgba: (0.157, 0.157, 0.157, 1)
-            Rectangle:
-                pos: self.pos
-                size: self.size
