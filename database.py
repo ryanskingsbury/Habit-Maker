@@ -35,9 +35,11 @@ class DataBase:
     def add_donated(self, email, donation):
         donated = donation + int(self.users[email][4])
         self.users[email][4] = str(donated)
+        self.save()
 
     def add_watcher(self, email, watcher):
         self.users[email][3] = watcher.strip()
+        self.save()
 
     def validate(self, email, password):
         if self.get_user(email) != -1:

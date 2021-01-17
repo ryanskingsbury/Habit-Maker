@@ -1,3 +1,4 @@
 rup@csus.edu;ruprup;rup;2021-01-16;ben@csus.edu;0
 ben@csus.edu;ben;Ben;2021-01-16;none;0
 asdf@asdf.com;asdf;asdf;2021-01-16;none;0
+a@a.com;b;rupppp;2021-01-16;none;40

@@ -57,7 +57,7 @@ class LoginWindow(Screen):
             self.reset()
             sm.current = "habit"
         else:
-            invalidLogin()
+            invalidForm('Invalid login')
 
     def createBtn(self):
         self.reset()
