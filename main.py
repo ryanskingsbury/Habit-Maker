@@ -97,6 +97,10 @@ class HabitWindow(Screen):
         print (user_habits)
         self.on_enter()
 
+    def pendingBtn(self, indx):
+        db.update_status(self.current, indx, 'Pending')
+        self.on_enter()
+
     def reset_button(self):
         db.reset_habits(self.current)
         self.on_enter()
@@ -119,6 +123,16 @@ class WatchlistWindow(Screen):
     habit_1 = ObjectProperty(None)
     habit_2 = ObjectProperty(None)
     habit_3 = ObjectProperty(None)
+
+    def acceptBtn(self, indx):
+        watching = db.get_watching(self.current)
+        db.update_status(watching, indx, 'Completed')
+        self.on_enter()
+
+    def declineBtn(self, indx):
+        watching = db.get_watching(self.current)
+        db.update_status(watching, indx, 'Declined')   
+        self.on_enter()
     
     def on_enter(self, *args):
         self.habit_1.text = ""
