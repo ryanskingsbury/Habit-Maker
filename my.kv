@@ -1,8 +1,6 @@
 #:kivy 2.0.0
 
-
 <CreateAccountWindow>:
-
     name: "create"
 
     namee: namee
@@ -74,7 +72,6 @@
                     password: True
                     font_size: (root.width**2 + root.height**2) / 14**4
 
-
                 Label:
                     size_hint: 0.5,0.12
                     pos_hint: {"x":0, "top":0.9-0.13*3}
@@ -116,7 +113,6 @@
 
 <LoginWindow>:
     name: "login"
-
     email: email
     password: password
 
@@ -129,7 +125,6 @@
                 size: self.size
 
         FloatLayout:
-
             Label:
                 text:"Email: "
                 font_size: (root.width**2 + root.height**2) / 13**4
@@ -184,6 +179,8 @@
 
 
 <HabitWindow>:
+    morning_habit_1: morning_habit_1
+    
     RelativeLayout:
         canvas.before:
             Color:
@@ -234,14 +231,14 @@
                     root.manager.transition.direction = "right"
 
         GridLayout:
-            rows: 6
-            cols: 2
+            rows: 5
+            cols: 1
             row_force_default: True
             row_default_height: '32dp'
             size_hint_y: None
             pos_hint:{"x":0, "y": 0.5}
             Label:
-                text: 'Habit 1'
+                id: morning_habit_1
             Label:
                 text: 'Habit 2'
             Label:
@@ -250,8 +247,6 @@
                 text: 'Habit 4'
             Label:
                 text: 'Habit 5'
-            Label:
-                text: 'Habit 6'
             Widget:
                 canvas:
                     Rectangle:
@@ -263,7 +258,15 @@
                         pos: (20,20)
                         size: (50,50)
 
-
+        Button:
+            pos_hint:{"x":0.2, "y": 0.05}
+            size_hint:0.1,0.1
+            text: "Create Habit"
+            background_normal: ''
+            background_color: (0.235,0.510,0.784,1)
+            on_release:
+                root.habitGenBtn()
+                app.root.current = 'habit'
 
 
 <WatchlistWindow>:
@@ -318,7 +321,6 @@
 
 
 <ProfileWindow>:
-
     n: n
     created: created
     email: email
@@ -334,7 +336,6 @@
                 size: self.size
 
         FloatLayout:
-
             Label:
                 id: n
                 pos_hint:{"x": 0.1, "top":0.9}

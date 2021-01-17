@@ -7,6 +7,8 @@ from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 #from kivy.uix.textinput import TextInput
 from database import DataBase
+import random
+import fileinput
 
 
 class CreateAccountWindow(Screen):
@@ -68,28 +70,25 @@ class LoginWindow(Screen):
         self.password.text = ""
 
 class HabitWindow(Screen):
-
-    def logOut(self):
-        sm.current = "login"
-
-    def watchlistBtn(self):
-        sm.current = "watchlist"
-
-    def profileBtn(self):
-        ProfileWindow.current = self.email.text
-        sm.current = "profile"
+    user_habits = []
+    morning_habit_1 = ObjectProperty(None)
+    
+    def habitGenBtn(self):
+        file = open('habits.txt')
+        all_habits = file.readlines()
+        habit_index = random.randint(0, len(all_habits)-1)
+        self.user_habits.append(all_habits[habit_index])
+        print(self.user_habits)
+        if len(self.user_habits) > 0:
+            self.morning_habit_1.text = "Habit #1: " + self.user_habits[0]
+        
+    def on_enter(self, *args):
+        if len(self.user_habits) > 0:
+            self.morning_habit_1.text = "Habit #1: " + self.user_habits[0]
 
 
 class WatchlistWindow(Screen):
-
-    def logOut(self):
-        sm.current = "login"
-
-    def habitBtn(self):
-        sm.current = "habit"
-
-    def profileBtn(self):
-        sm.current = "profile"
+    pass
 
 
 class ProfileWindow(Screen):
@@ -106,16 +105,6 @@ class ProfileWindow(Screen):
         self.created.text = "Created On: " + created
         self.watcher.text = "Watcher: " + watcher
         self.donated.text = "Donated: $" + donated
-
-    
-    def logOut(self):
-        sm.current = "login"
-
-    def habitBtn(self):
-        sm.current = "habit"
-
-    def watchlistBtn(self):
-        sm.current = "watchlist"
 
 
 class WindowManager(ScreenManager):
