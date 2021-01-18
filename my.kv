@@ -182,6 +182,10 @@
     habit_1: habit_1
     habit_2: habit_2
     habit_3: habit_3
+
+    pending_1: pending_1
+    pending_2: pending_2
+    pending_3: pending_3
     
     RelativeLayout:
         canvas.before:
@@ -275,6 +279,45 @@
             on_release:
                 root.donateBtn()
                 app.root.current = 'habit'
+
+        Label:
+            id: pending_1
+            pos_hint:{"x": 0.1, "y":0.4}
+            size_hint:0.8, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            background_color: (60/255,179/255,0/255,1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        
+        Label:
+            id: pending_2
+            pos_hint:{"x": 0.1, "y":0.5}
+            size_hint:0.8, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            background_color: (60/255,179/255,0/255,1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        
+        Label:
+            id: pending_3
+            pos_hint:{"x": 0.1, "y":0.6}
+            size_hint:0.8, 0.1
+            font_size: (root.width**2 + root.height**2) / 14**4
+            background_color: (60/255,179/255,0/255,1)
+            canvas.before:
+                Color:
+                    rgba: self.background_color
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
 
 <WatchlistWindow>:
