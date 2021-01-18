@@ -3,6 +3,7 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
+from kivy.uix.floatlayout import FloatLayout 
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 #from kivy.uix.textinput import TextInput
@@ -60,6 +61,7 @@ class LoginWindow(Screen):
             ProfileWindow.current = self.email.text
             HabitWindow.current = self.email.text
             WatchlistWindow.current = self.email.text
+            Popups.current = self.email.text
             self.reset()
             sm.current = "habit"
         else:
@@ -137,6 +139,7 @@ class HabitWindow(Screen):
 
     def donateBtn(self):
         webbrowser.open("https://www.paypal.com/fundraiser/hub")
+        show_popup()
         
 
 
@@ -231,6 +234,12 @@ def invalidForm(error):
 
     pop.open()
 
+def show_popup(): 
+    show = Popups() 
+    popupWindow = Popup(title ="How much did you donate?", content = show, 
+                        size_hint =(None, None), size =(300, 200)) 
+    popupWindow.open() 
+
 def hide_widget(wid, dohide):
     if hasattr(wid, 'saved_attrs'):
         if not dohide:
@@ -256,6 +265,17 @@ sm.current = "login"
 class MyMainApp(App):
     def build(self):
         return sm
+
+class Popups(FloatLayout): 
+    amount = ObjectProperty(None)
+    num = 1
+    def donate(self):
+        try:
+            if int(self.amount.text):
+                db.add_donated(self.current, int(self.amount.text))
+        except:
+            invalidForm('Enter a number')
+    
 
 
 if __name__ == "__main__":

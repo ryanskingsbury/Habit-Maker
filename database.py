@@ -54,8 +54,8 @@ class DataBase:
             return -1
 
     def add_donated(self, email, donation):
-        donated = donation + int(self.users[email][4])
-        self.users[email][4] = str(donated)
+        donated = donation + int(self.users[email][5])
+        self.users[email][5] = str(donated)
         self.save()
 
     def add_watcher(self, email, watcher):

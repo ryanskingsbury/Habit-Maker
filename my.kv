@@ -568,3 +568,21 @@
                 on_release:
                     app.root.current = "habit"
                     root.manager.transition.direction = "left"
+
+<Popups>: 
+
+    amount: amount
+    auto_dismiss: True
+    id:pop
+
+    TextInput:
+        pos_hint: {"x":0.2, "top":1}
+        size_hint: 0.6, 0.2
+        id: amount
+  
+    Button: 
+        text: "Submit"
+        size_hint: 1, 0.4 
+        pos_hint: {"x":0, "y":0.1} 
+        on_release:
+            root.donate()
