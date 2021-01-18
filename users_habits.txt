@@ -1,2 +1,1 @@
-a@a.com;Get at least 60 minutes of excersise;Pending;Drink 8 glasses of water;Not completed;For every 60 minutes of sitting, spend 5 minutes standing;Not completed
-asdf@asdf.com;Limit yourself to 1 cup of coffee;Pending;Get at least 60 minutes of physical activity;Pending;Go to bed early enough to get at least 7 hours of sleep;Pending
+
