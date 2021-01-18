@@ -87,12 +87,13 @@ class HabitWindow(Screen):
         file = open('habits.txt')
         all_habits = file.readlines()
         habit_index = random.randint(0, len(all_habits)-1)
-        rand_habit = all_habits[habit_index]
+        rand_habit = all_habits[habit_index].strip()
 
         user_habits = db.get_habits(self.current)
-        while rand_habit in user_habits:
+        while rand_habit in user_habits and 'none' in user_habits:
             habit_index = random.randint(0, len(all_habits)-1)
-            rand_habit = all_habits[habit_index]
+            rand_habit = all_habits[habit_index].strip()
+
         for idx,element in enumerate(user_habits):
             if element == 'none':
                 db.update_habit(self.current, idx, rand_habit)
@@ -117,19 +118,19 @@ class HabitWindow(Screen):
         self.habit_3.text = ""
         habit1, val1, habit2, val2, habit3, val3 = db.get_habits(self.current)
         if habit1 != "none":
-            self.habit_1.text = "Habit #1: " + habit1 + ":" + val1
+            self.habit_1.text = "Habit #1: " + habit1 + ": " + val1
             hide_widget(self.pending_1, False)
         else:
             hide_widget(self.pending_1, True)
 
         if habit2 != "none":
-            self.habit_2.text = "Habit #2: " + habit2 + ":" + val2
+            self.habit_2.text = "Habit #2: " + habit2 + ": " + val2
             hide_widget(self.pending_2, False)
         else:
             hide_widget(self.pending_2, True)
 
         if habit3 != "none":
-            self.habit_3.text = "Habit #3: " + habit3 + ":" + val3
+            self.habit_3.text = "Habit #3: " + habit3 + ": " + val3
             hide_widget(self.pending_3, False)
         else:
             hide_widget(self.pending_3, True)
@@ -168,7 +169,7 @@ class WatchlistWindow(Screen):
         if watching != "none":
             habit1, val1, habit2, val2, habit3, val3 = db.get_habits(watching)
             if habit1 != "none":
-                self.habit_1.text = "Habit #1: " + habit1 + ":" + val1
+                self.habit_1.text = "Habit #1: " + habit1 + ": " + val1
                 hide_widget(self.accept_1, False)
                 hide_widget(self.decline_1, False)
             else:
@@ -176,7 +177,7 @@ class WatchlistWindow(Screen):
                 hide_widget(self.decline_1, True)
                 
             if habit2 != "none":
-                self.habit_2.text = "Habit #2: " + habit2 + ":" + val2
+                self.habit_2.text = "Habit #2: " + habit2 + ": " + val2
                 hide_widget(self.accept_2, False)
                 hide_widget(self.decline_2, False)
             else:
@@ -184,7 +185,7 @@ class WatchlistWindow(Screen):
                 hide_widget(self.decline_2, True)
             
             if habit3 != "none":
-                self.habit_3.text = "Habit #3: " + habit3 + ":" + val3
+                self.habit_3.text = "Habit #3: " + habit3 + ": " + val3
                 hide_widget(self.accept_3, False)
                 hide_widget(self.decline_3, False)
             else:
