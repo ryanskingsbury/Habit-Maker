@@ -92,6 +92,12 @@ class DataBase:
         self.habits[email][5] = 'Not completed'
         self.save_habits()
 
+    def clear_habits(self, email):
+        self.habits[email][0] = 'none'
+        self.habits[email][2] = 'none'
+        self.habits[email][4] = 'none'
+        self.reset_habits(email)
+
     def validate(self, email, password):
         if self.get_user(email) != -1:
             return self.users[email][0] == password

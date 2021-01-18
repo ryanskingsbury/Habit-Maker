@@ -1,2 +1,2 @@
 a@a.com;Get at least 60 minutes of excersise;Pending;Drink 8 glasses of water;Not completed;For every 60 minutes of sitting, spend 5 minutes standing;Not completed
-asdf@asdf.com;Eat dinner;Not completed;Eat lunch;Not completed;Drink 8 glasses of water;Not completed
+asdf@asdf.com;Walk 5 minutes for every hour spent sitting;Not completed;Walk 5 minutes for every hour spent sitting;Not completed;none;Not completed

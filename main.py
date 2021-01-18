@@ -79,6 +79,9 @@ class HabitWindow(Screen):
     habit_1 = ObjectProperty(None)
     habit_2 = ObjectProperty(None)
     habit_3 = ObjectProperty(None)
+    pending_1 = ObjectProperty(None)
+    pending_2 = ObjectProperty(None)
+    pending_3 = ObjectProperty(None)
     
     def habitGenBtn(self):
         file = open('habits.txt')
@@ -94,8 +97,6 @@ class HabitWindow(Screen):
             if element == 'none':
                 db.update_habit(self.current, idx, rand_habit)
                 break
-                
-        print (user_habits)
         self.on_enter()
 
     def pendingBtn(self, indx):
@@ -105,6 +106,10 @@ class HabitWindow(Screen):
     def reset_button(self):
         db.reset_habits(self.current)
         self.on_enter()
+
+    def clear_button(self):
+        db.clear_habits(self.current)
+        self.on_enter()
         
     def on_enter(self, *args):
         self.habit_1.text = ""
@@ -113,23 +118,41 @@ class HabitWindow(Screen):
         habit1, val1, habit2, val2, habit3, val3 = db.get_habits(self.current)
         if habit1 != "none":
             self.habit_1.text = "Habit #1: " + habit1 + ":" + val1
+            hide_widget(self.pending_1, False)
+        else:
+            hide_widget(self.pending_1, True)
+
         if habit2 != "none":
             self.habit_2.text = "Habit #2: " + habit2 + ":" + val2
+            hide_widget(self.pending_2, False)
+        else:
+            hide_widget(self.pending_2, True)
+
         if habit3 != "none":
             self.habit_3.text = "Habit #3: " + habit3 + ":" + val3
+            hide_widget(self.pending_3, False)
+        else:
+            hide_widget(self.pending_3, True)
 
     def donateBtn(self):
         webbrowser.open("https://www.paypal.com/fundraiser/hub")
+        
 
 
 class WatchlistWindow(Screen):
     habit_1 = ObjectProperty(None)
     habit_2 = ObjectProperty(None)
     habit_3 = ObjectProperty(None)
+    accept_1 = ObjectProperty(None)
+    accept_2 = ObjectProperty(None)
+    accept_3 = ObjectProperty(None)
+    decline_1 = ObjectProperty(None)
+    decline_2 = ObjectProperty(None)
+    decline_3 = ObjectProperty(None)
 
     def acceptBtn(self, indx):
         watching = db.get_watching(self.current)
-        db.update_status(watching, indx, 'Completed')
+        db.update_status(watching, indx, 'Accepted')
         self.on_enter()
 
     def declineBtn(self, indx):
@@ -142,15 +165,39 @@ class WatchlistWindow(Screen):
         self.habit_2.text = ""
         self.habit_3.text = ""
         watching = db.get_watching(self.current)
-        print(watching)
         if watching != "none":
             habit1, val1, habit2, val2, habit3, val3 = db.get_habits(watching)
             if habit1 != "none":
                 self.habit_1.text = "Habit #1: " + habit1 + ":" + val1
+                hide_widget(self.accept_1, False)
+                hide_widget(self.decline_1, False)
+            else:
+                hide_widget(self.accept_1, True)
+                hide_widget(self.decline_1, True)
+                
             if habit2 != "none":
                 self.habit_2.text = "Habit #2: " + habit2 + ":" + val2
+                hide_widget(self.accept_2, False)
+                hide_widget(self.decline_2, False)
+            else:
+                hide_widget(self.accept_2, True)
+                hide_widget(self.decline_2, True)
+            
             if habit3 != "none":
                 self.habit_3.text = "Habit #3: " + habit3 + ":" + val3
+                hide_widget(self.accept_3, False)
+                hide_widget(self.decline_3, False)
+            else:
+                hide_widget(self.accept_3, True)
+                hide_widget(self.decline_3, True)
+        else:
+            hide_widget(self.accept_1, True)
+            hide_widget(self.decline_1, True)
+            hide_widget(self.accept_2, True)
+            hide_widget(self.decline_2, True)
+            hide_widget(self.accept_3, True)
+            hide_widget(self.decline_3, True)
+
 
 
 class ProfileWindow(Screen):
@@ -182,6 +229,15 @@ def invalidForm(error):
                   size_hint=(None, None), size=(400, 400))
 
     pop.open()
+
+def hide_widget(wid, dohide):
+    if hasattr(wid, 'saved_attrs'):
+        if not dohide:
+            wid.height, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+            del wid.saved_attrs
+    elif dohide:
+        wid.saved_attrs = wid.height, wid.size_hint_y, wid.opacity, wid.disabled
+        wid.height, wid.size_hint_y, wid.opacity, wid.disabled = 0, None, 0, True
 
 
 kv = Builder.load_file("my.kv")
