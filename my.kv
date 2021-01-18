@@ -290,6 +290,16 @@
         Button:
             pos_hint:{"x":0.5, "y": 0.05}
             size_hint:0.15,0.1
+            text: "Clear Habits"
+            background_normal: ''
+            background_color: (0.235,0.510,0.784,1)
+            on_release:
+                root.reset_button()
+                app.root.current = 'habit'
+
+        Button:
+            pos_hint:{"x":0.5, "y": 0.05}
+            size_hint:0.15,0.1
             text: "Donate"
             background_normal: ''
             background_color: (0.235,0.510,0.784,1)
