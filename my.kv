@@ -238,38 +238,38 @@
 
         GridLayout:
             rows: 3
-            cols: 1
+            cols: 2
             row_force_default: True
             row_default_height: '32dp'
             size_hint_y: None
             pos_hint:{"x":0, "y": 0.5}
             Label:
                 id: habit_1
-                Button:
-                    size_hint:0.1,0.1
-                    text: "pending"
-                    background_normal: ''
-                    background_color: (0.235,0.510,0.784,1)
-                    on_release:
-                        root.pendingBtn(0)
+            Button:
+                size_hint:0.1,0.1
+                text: "pending"
+                background_normal: ''
+                background_color: (0.235,0.510,0.784,1)
+                on_release:
+                    root.pendingBtn(0)
             Label:
                 id: habit_2
-                Button:
-                    size_hint:0.1,0.1
-                    text: "pending"
-                    background_normal: ''
-                    background_color: (0.235,0.510,0.784,1)
-                    on_release:
-                        root.acceptBtn(2)
+            Button:
+                size_hint:0.1,0.1
+                text: "pending"
+                background_normal: ''
+                background_color: (0.235,0.510,0.784,1)
+                on_release:
+                    root.acceptBtn(2)
             Label:
                 id: habit_3
-                Button:
-                    size_hint:0.1,0.1
-                    text: "pending"
-                    background_normal: ''
-                    background_color: (0.235,0.510,0.784,1)
-                    on_release:
-                        root.pendingBtn(4)
+            Button:
+                size_hint:0.1,0.1
+                text: "pending"
+                background_normal: ''
+                background_color: (0.235,0.510,0.784,1)
+                on_release:
+                    root.pendingBtn(4)
        
         Button:
             pos_hint:{"x":0.3, "y": 0.05}
